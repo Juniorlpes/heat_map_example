@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:heat_map/app/modules/custom_drawer/custom_drawer_module.dart';
-import 'home_controller.dart';
+import 'package:heat_map/app/modules/home/widgets/animated_top_container.dart';
+import 'package:heat_map/app/modules/home/widgets/custom_bottom_sheet.dart';
+import 'package:heat_map/app/modules/home/widgets/grid_view_home.dart';
+import 'package:heat_map/app/modules/home/widgets/person_pop.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -10,11 +12,10 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends ModularState<HomePage, HomeController> {
+class _HomePageState extends State<HomePage> {
   
   @override
   Widget build(BuildContext context) {
-    final sizeScreen = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text('Heat Map',
@@ -27,14 +28,24 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         centerTitle: false,
         backgroundColor: Colors.red,
         actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.person,
-              size: 30,
-            ), 
-            onPressed: (){
-
-            }
+          Builder(
+            builder: (context) => IconButton(
+              icon: Icon(
+                Icons.person,
+                size: 30,
+              ), 
+              onPressed: () async {
+                var name = await requestPersonPop(context);
+                if(name != null) {
+                  Scaffold.of(context).showSnackBar(
+                    SnackBar(
+                      duration: Duration(seconds: 2),
+                      content: Text('Hello $name!'),
+                    )
+                  );
+                }
+              }
+            ),
           ),
           IconButton(
             icon: Icon(
@@ -42,7 +53,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               size: 30,
             ), 
             onPressed: (){
-
+              showModalBottomSheet(
+                context: context, 
+                builder: (context) => CustomBottomSheet()
+              );
             }
           ),
         ],
@@ -50,87 +64,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       drawer: DrawerModule(),
       body: Column(
         children: <Widget>[
-          Container(
-            color: Colors.redAccent,
-            alignment: Alignment.topCenter,
-            height: sizeScreen.height*0.08,
-            width: sizeScreen.width*0.3,
-            margin: EdgeInsets.symmetric(
-              vertical: sizeScreen.height*0.01, 
-              horizontal: sizeScreen.width*0.02
-            ),
-          ),
+          AnimatedTopContainer(),
           Expanded(
-            child: GridView.count(
-              crossAxisCount: 3,
-              scrollDirection: Axis.vertical,
-              primary: false,
-              crossAxisSpacing: sizeScreen.width*0.015,
-              mainAxisSpacing: sizeScreen.width*0.015,
-              padding: EdgeInsets.only(
-                top: sizeScreen.height*0.1,
-                right: sizeScreen.width*0.015,
-                left: sizeScreen.width*0.015
-              ),
-              children: <Widget>[
-                Card(
-                  child: InkWell(
-                    onTap: (){},
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.add),
-                        Text('add', textAlign: TextAlign.center,)
-                      ],
-                    ),
-                  )
-                ),
-                Card(
-                  child: InkWell(
-                    onTap: (){},
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.add),
-                        Text('add', textAlign: TextAlign.center,)
-                      ],
-                    ),
-                  )
-                ),
-                Card(
-                  child: InkWell(
-                    onTap: (){},
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.add),
-                        Text('add', textAlign: TextAlign.center,)
-                      ],
-                    ),
-                  )
-                ),
-                Card(
-                  child: InkWell(
-                    onTap: (){},
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.add),
-                        Text('add', textAlign: TextAlign.center,)
-                      ],
-                    ),
-                  )
-                ),
-              ],
-            )
+            child: GridViewHome(),
           )
         ],
       ),
     );
   }
 }
-  
