@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ListPage extends StatefulWidget {
@@ -11,6 +12,12 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> {
   final _items = List<String>.generate(20, (i) => "Item ${i + 1}");
+
+  @override
+  void initState() {
+    FlutterUxcam.tagScreenName('list_page'); 
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

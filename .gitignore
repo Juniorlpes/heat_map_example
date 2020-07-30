@@ -30,7 +30,7 @@
 .pub/
 /build/
 
-/lib/ux_key.dart
+/lib/api_key.dart
 
 # Web related
 lib/generated_plugin_registrant.dart

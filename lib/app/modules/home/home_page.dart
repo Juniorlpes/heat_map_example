@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:heat_map/app/modules/custom_drawer/custom_drawer_module.dart';
 import 'package:heat_map/app/modules/home/widgets/animated_top_container.dart';
@@ -13,6 +14,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    //FlutterUxcam.tagScreenName('home_page'); 
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
