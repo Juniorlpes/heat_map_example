@@ -5,6 +5,7 @@ import 'package:heat_map/app/modules/home/widgets/animated_top_container.dart';
 import 'package:heat_map/app/modules/home/widgets/custom_bottom_sheet.dart';
 import 'package:heat_map/app/modules/home/widgets/grid_view_home.dart';
 import 'package:heat_map/app/modules/home/widgets/person_pop.dart';
+import 'package:smartlook/smartlook.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -13,6 +14,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    super.initState();
+    Smartlook.startRecording();
+    //Smartlook.trackNavigationEvent("home_page", SmartlookNavigationEventType.enter);
+  }
+
+  @override
+  void dispose() {
+    //Smartlook.trackNavigationEvent("home_page", SmartlookNavigationEventType.exit);
+    Smartlook.stopRecording();
+    super.dispose();
+  }
   
   @override
   Widget build(BuildContext context) {

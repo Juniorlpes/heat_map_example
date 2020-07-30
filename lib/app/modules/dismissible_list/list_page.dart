@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smartlook/smartlook.dart';
 
 class ListPage extends StatefulWidget {
 
@@ -11,6 +12,12 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> {
   final _items = List<String>.generate(20, (i) => "Item ${i + 1}");
+
+  @override
+  void dispose() {
+    Smartlook.trackNavigationEvent("list_page", SmartlookNavigationEventType.exit);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

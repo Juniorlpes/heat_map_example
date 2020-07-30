@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:smartlook/smartlook.dart';
 
 class CustomDrawer extends StatelessWidget {
 
@@ -33,6 +34,7 @@ class CustomDrawer extends StatelessWidget {
                   title: Text('Dismissible List'),
                   onTap: (){
                     Modular.to.pop();
+                    Smartlook.trackNavigationEvent("list_page", SmartlookNavigationEventType.enter);
                     Modular.to.pushNamed('/home/list');
                   },
                 ),
