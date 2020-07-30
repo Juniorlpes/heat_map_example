@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class CustomDrawer extends StatelessWidget {
 
@@ -22,7 +23,22 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
       child: Stack(
         children: <Widget>[
-          _buildBackGround()
+          _buildBackGround(),
+          ListView(
+            padding: EdgeInsets.symmetric(vertical: 50, horizontal: 10),
+            children: <Widget>[
+              Card(
+                child: ListTile(
+                  leading: Icon(Icons.list),
+                  title: Text('Dismissible List'),
+                  onTap: (){
+                    Modular.to.pop();
+                    Modular.to.pushNamed('/home/list');
+                  },
+                ),
+              )
+            ],
+          )
         ],
       ),
     );
